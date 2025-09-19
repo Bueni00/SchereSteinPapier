@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schere-Stein-Papier</title>
+    <style>
+        body {
+            font-family: fantasy;
+            margin: 0;
+            padding: 0;
+            background-color:darkgoldenrod;
+        }
+        header {
+            color:darkred;
+            padding: 20px;
+            text-align: center;
+
+        }
+    </style>
+</head>
+<body>
+    <header>
+  <h1>Schere-Stein-Papier</h1>
+    <h1>Triff deine Wahl</h1>
+    <button onclick="spiel_figur_spieler('Schere'); this.style.backgroundColor='green';">Schere</button>
+    <button onclick="spiel_figur_spieler('Stein'); this.style.backgroundColor='green';">Stein</button>
+    <button onclick="spiel_figur_spieler('Papier'); this.style.backgroundColor='green';">Papier</button>
+
+    <h1>Start:</h1>
+    <button onclick="checkReady();"> Starte das Spiel</button>
+   
+
+    <div id="ergebnis"></div>
+
+  <script>
+//Schere Stein Papier WPU
+//Schere Stein Papier WPU
+let spiel = ["Schere", "Stein", "Papier"]; // Array für die Figuren erstellt
+let figur_wahl;                                        //Globale definition der Variabel für den Spieler
+let figur_random2;                                      //Globale definition der Variabel für den PC
+
+function spiel_random(array){                                   //Funktion zum randomisen welche Figur rauskommen soll
+    let index = Math.floor(Math.random() * array.length);       //mit math.random() random eine Figur aus dem Array rausgeben
+    return array[index];
+}
+
+function spiel_figur_spieler(figur) {                                //Funktion mit der, der Spieler seine Figur wählen kann
+figur_wahl = figur;                        //Mit prompt befehl die eingabe bestimmen
+
+
+}
+function spiel_figur_random() {                                 //Funktion um die random Figur für den Gegner(PC) zu bestimmen
+figur_random2 = spiel_random(spiel);
+
+}
+
+function checkReady() {
+    if (spiel_figur_spieler !== null && spiel_figur_random !== null) {
+        spiel_main();
+    }else {console.log("nicht ready");
+
+        }
+    }
+
+function spiel_main() {                                          //Das Main spiel mit den regeln usw
+    console.log("Beide user ready, main funktion startet");
+    console.log("Die User Figur ist:", figur_wahl);
+    console.log("Die PC Figur ist:", figur_random2);
+    let ergebnisText = "Der Gegner hat " + figur_random2 + " gewählt.<br>";
+
+    if (figur_wahl === figur_random2) {                          // mit if/else die Spielregeln durchgesetzt, hier wenn die Spielerfigur = Pc figur dann unentschieden
+        ergebnisText += "Unentschieden\n";                              
+    } else if (                                                 
+    (figur_wahl === "Schere" && figur_random2 === "Papier") ||     //Hier die definitionen der Regeln um zu gewinnen
+    (figur_wahl === "Stein" && figur_random2 === "Schere") ||
+    (figur_wahl === "Papier" && figur_random2 === "Stein")
+    ) {
+        ergebnisText += "Du hast gewonnen\n";
+    } else {
+        ergebnisText += "Du hast verloren\n";                       //Sollte keins von oben zutreffen, hat der Spieler verloren.
+    }
+           
+
+    document.getElementById("ergebnis").innerHTML = ergebnisText;
+
+}
+    
+
+spiel_figur_spieler();
+spiel_figur_random();
+spiel_main();
+
+  </script>
+</body>
+</html>
