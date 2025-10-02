@@ -23,9 +23,9 @@
     <header>
   <h1>Schere-Stein-Papier</h1>
     <h1>Triff deine Wahl</h1>
-    <button onclick="spiel_figur_spieler('Schere'); this.style.backgroundColor='green';">Schere</button>
-    <button onclick="spiel_figur_spieler('Stein'); this.style.backgroundColor='green';">Stein</button>
-    <button onclick="spiel_figur_spieler('Papier'); this.style.backgroundColor='green';">Papier</button>
+    <button class="wahl-btn" onclick="spiel_figur_spieler('Schere', this)">Schere</button>
+    <button class="wahl-btn" onclick="spiel_figur_spieler('Stein', this)">Stein</button>
+    <button class="wahl-btn" onclick="spiel_figur_spieler('Papier', this)">Papier</button>
 
     <h1>Start:</h1>
     <button onclick="checkReady();"> Starte das Spiel</button>
@@ -45,25 +45,36 @@ function spiel_random(array){                                   //Funktion zum r
     return array[index];
 }
 
-function spiel_figur_spieler(figur) {                                //Funktion mit der, der Spieler seine Figur wählen kann
-figur_wahl = figur;                        //Mit prompt befehl die eingabe bestimmen
+function spiel_figur_spieler(figur, gekButton) {                                //Funktion mit der, der Spieler seine Figur wählen kann
 
+    const alleKnoepfe = document.querySelectorAll('.wahl-btn');
+
+  // 2. Gehe jeden dieser Knöpfe durch und setze die Hintergrundfarbe zurück.
+    alleKnoepfe.forEach(knopf => {
+        knopf.style.backgroundColor = ''; // Leerer String setzt es auf den Standardwert zurück
+    });
+
+  // 3. Setze JETZT die Farbe nur für den Knopf, der geklickt wurde.
+    gekButton.style.backgroundColor = 'green';
+
+ figur_wahl = figur;                        //Mit prompt befehl die eingabe bestimmen
 
 }
-function spiel_figur_random() {                                 //Funktion um die random Figur für den Gegner(PC) zu bestimmen
-figur_random2 = spiel_random(spiel);
+//function spiel_figur_random() {                                 //Funktion um die random Figur für den Gegner(PC) zu bestimmen
+//figur_random2 = spiel_random(spiel);
 
-}
+//}
 
 function checkReady() {
-    if (spiel_figur_spieler !== null && spiel_figur_random !== null) {
+    if (figur_wahl) {
         spiel_main();
-    }else {console.log("nicht ready");
+    } else {document.getElementById("ergebnis").innerHTML = "Bitte wähle zuerst Schere, Stein oder Papier!";
 
         }
     }
 
 function spiel_main() {                                          //Das Main spiel mit den regeln usw
+    figur_random2 = spiel_random(spiel);
     console.log("Beide user ready, main funktion startet");
     console.log("Die User Figur ist:", figur_wahl);
     console.log("Die PC Figur ist:", figur_random2);
@@ -85,11 +96,6 @@ function spiel_main() {                                          //Das Main spie
     document.getElementById("ergebnis").innerHTML = ergebnisText;
 
 }
-    
-
-spiel_figur_spieler();
-spiel_figur_random();
-spiel_main();
 
   </script>
 </body>
